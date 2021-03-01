@@ -1,4 +1,5 @@
 {
+  "homepage": "http://medalbeast.me/Kinder",
   "name": "kinder",
   "version": "0.1.0",
   "private": true,
@@ -9,7 +10,6 @@
     "antd": "^4.12.3",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
-    "gh-pages": "^3.1.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^17.0.1",
@@ -42,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
   }
 }
