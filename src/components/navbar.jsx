@@ -18,7 +18,7 @@ function Navbar() {
         <Nav.Link eventKey="link-3">Matches</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="link-3">Messages</Nav.Link>
+        <Nav.Link eventKey="link-4">Messages</Nav.Link>
       </Nav.Item>
     </Nav>
   )

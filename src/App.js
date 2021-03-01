@@ -6,15 +6,13 @@ import Navbar from "./components/navbar"
 
 function App() {
   return (
-    (
     <div>
-        <Header></Header>
-        <Navbar></Navbar>
-        <Homepage></Homepage>
-        <Login></Login>
-        <Footer></Footer>
-      </div>
-  )
+      <Header></Header>
+      <Navbar></Navbar>
+      <Homepage></Homepage>
+      <Login></Login>
+      <Footer></Footer>
+    </div>
   )
 }
 

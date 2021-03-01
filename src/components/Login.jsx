@@ -7,9 +7,23 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { Modal, Form, Input } from "antd"
 import { Button } from "react-bootstrap"
 import "antd/dist/antd.css"
+import "../css/styles.css"
+
+const axios = require("axios").default
 
 class Login extends React.Component {
   render() {
+    axios
+      .post("https://kindernodejs.herokuapp.com/login", {
+        email: "raja@gmail.com",
+        password: "1234",
+      })
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
     //popup and form code
     const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
       const [form] = Form.useForm()
@@ -79,7 +93,7 @@ class Login extends React.Component {
       }
 
       return (
-        <div>
+        <div className="pad0">
           <Button
             onClick={() => {
               setVisible(true)
