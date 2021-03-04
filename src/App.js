@@ -12,7 +12,7 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/Kinder">
           <ComponentHome />
         </Route>
         <Route path="/login">
