@@ -1,19 +1,29 @@
-import Footer from './components/footer'
-import Header from "./components/header"
-import Homepage from './components/home_page'
-import Login from './components/Login'
-import Navbar from "./components/navbar"
+import React from "react"
+// react router
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+// pages
+import ComponentHome from "./components/homecomp/componentHome"
+import Login from "./components/Login/login.js"
+import Signup from "./components/signup/signup"
 
-function App() {
+// navbar
+// import Navbar from "./Navbar"
+const App = () => {
   return (
-    <div>
-      <Header></Header>
-      <Navbar></Navbar>
-      <Homepage></Homepage>
-      <Login></Login>
-      <Footer></Footer>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/Kinder">
+          <ComponentHome />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/signup">
+          <Signup />
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 
-export default App;
+export default App

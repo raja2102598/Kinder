@@ -1,4 +1,4 @@
-import logo from "../images/17828.jpg"
+import logo from "../../images/17828.jpg"
 
 function Homepage() {
   return (
