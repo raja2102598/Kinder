@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.js": "/Kinder/static/js/main.d1503e35.chunk.js",
-    "main.js.map": "/Kinder/static/js/main.d1503e35.chunk.js.map",
+    "main.js": "/Kinder/static/js/main.a4661ee1.chunk.js",
+    "main.js.map": "/Kinder/static/js/main.a4661ee1.chunk.js.map",
     "runtime-main.js": "/Kinder/static/js/runtime-main.3d23b748.js",
     "runtime-main.js.map": "/Kinder/static/js/runtime-main.3d23b748.js.map",
     "static/css/2.150d169a.chunk.css": "/Kinder/static/css/2.150d169a.chunk.css",
-    "static/js/2.8f21acd2.chunk.js": "/Kinder/static/js/2.8f21acd2.chunk.js",
-    "static/js/2.8f21acd2.chunk.js.map": "/Kinder/static/js/2.8f21acd2.chunk.js.map",
+    "static/js/2.6f7f0fa9.chunk.js": "/Kinder/static/js/2.6f7f0fa9.chunk.js",
+    "static/js/2.6f7f0fa9.chunk.js.map": "/Kinder/static/js/2.6f7f0fa9.chunk.js.map",
     "index.html": "/Kinder/index.html",
     "static/css/2.150d169a.chunk.css.map": "/Kinder/static/css/2.150d169a.chunk.css.map",
-    "static/js/2.8f21acd2.chunk.js.LICENSE.txt": "/Kinder/static/js/2.8f21acd2.chunk.js.LICENSE.txt",
+    "static/js/2.6f7f0fa9.chunk.js.LICENSE.txt": "/Kinder/static/js/2.6f7f0fa9.chunk.js.LICENSE.txt",
     "static/media/17828.d1cae367.jpg": "/Kinder/static/media/17828.d1cae367.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.3d23b748.js",
     "static/css/2.150d169a.chunk.css",
-    "static/js/2.8f21acd2.chunk.js",
-    "static/js/main.d1503e35.chunk.js"
+    "static/js/2.6f7f0fa9.chunk.js",
+    "static/js/main.a4661ee1.chunk.js"
   ]
 }
