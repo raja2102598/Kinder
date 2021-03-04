@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/css/styles.css"],"names":[],"mappings":"AAAA,gBACI,WAAY,CACZ,QACJ","file":"main.a5bf1e85.chunk.css","sourcesContent":[".div,.container{\r\n    padding: 4px;\r\n    margin: 0px;\r\n}"]}
