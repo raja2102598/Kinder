@@ -1,6 +1,7 @@
 import React from "react"
 // react router
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import Feeds from "./components/Feeds/feeds"
 // pages
 import ComponentHome from "./components/homecomp/componentHome"
 import Login from "./components/Login/login.js"
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/signup">
           <Signup />
         </Route>
+        <Route path="/feeds/:userid" children={<Feeds />}></Route>
       </Switch>
     </Router>
   )
