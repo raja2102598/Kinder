@@ -3,8 +3,6 @@ import Avatar from "@material-ui/core/Avatar"
 import Button from "@material-ui/core/Button"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import TextField from "@material-ui/core/TextField"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
-import Checkbox from "@material-ui/core/Checkbox"
 import Link from "@material-ui/core/Link"
 import Grid from "@material-ui/core/Grid"
 import Box from "@material-ui/core/Box"
@@ -54,13 +52,26 @@ const handleSubmit = (e) => {
   console.log(e.target.values)
 }
 
+const Flag=(props)=>{
+  return(
+  <Typography component="h2" variant="body1" color="secondary">
+    {props.text}
+  </Typography>
+  )
+}
+
 export default function SignUp() {
   const [person, setPerson] = useState({
     fname: "",
     lname: "",
     email: "",
     password: "",
+    confirm_password:""
   })
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [emailStatus, setemailStatus] = useState(false)
+  const [passwordStatus, setpasswordStatus] = useState(true)
+  const [userid, setuserid] = useState("")
 
   const classes = useStyles()
 
@@ -68,19 +79,21 @@ export default function SignUp() {
     const name = e.target.name
     const value = e.target.value
     setPerson({ ...person, [name]: value })
-    // console.log(person);
+    console.log(person);
   }
 
   const handleSubmit = (e) => {
+    setpasswordStatus(false)
     e.preventDefault()
     console.log(person)
     if (
       validator.isEmail(person.email) &&
       person.password.length >= 8 &&
       person.fname.length >= 0 &&
-      person.lname.length>=0
+      person.lname.length>=0 && person.password===person.confirm_password
     ) {
       // console.log("hello")
+      setpasswordStatus(true)
       axios.post('http://localhost:5000/createAcc', {
         firstName: person.fname,
         lastName: person.lname,
@@ -88,20 +101,33 @@ export default function SignUp() {
         password:person.password
       })
       .then(function (response) {
-        console.log(response.data);
-        <Redirect to='/login'></Redirect>
+        console.log(response.data)
+        // {<Redirect to={"/login"}></Redirect>
+        if (response.data.status === "Success") {
+          setIsLoggedIn(true)
+          setuserid(response.data.user_id)
+          // console.log("hello")
+          // console.log(isLoggedIn)
+        } else if(response.data.status === "Failed"){
+          setIsLoggedIn(false)
+          setemailStatus(true)
+          // console.log("hello wolrd")
+          // console.log(isLoggedIn)
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
       
     } else {
+      setpasswordStatus(false)
       console.log("bye")
     }
   }
 
   return (
     <Router forceRefresh={true}>
+    {isLoggedIn?<Redirect to={'/feeds/'+userid}></Redirect>:
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
@@ -111,6 +137,8 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
+          {emailStatus?<Flag text="Email already in use.Please Sign in !"></Flag>:""}
+          {passwordStatus?"":<Flag text="Passwords doesn't match"></Flag>}
           <form className={classes.form} onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -177,6 +205,8 @@ export default function SignUp() {
                   type="password"
                   id="confirm_password"
                   autoComplete="current-password"
+                  value={person.confirm_password}
+                  onChange={handleChange}
                   />
               </Grid>
               
@@ -213,7 +243,8 @@ export default function SignUp() {
         <Box mt={5}>
           <Copyright />
         </Box>
-      </Container>
-    </Router>
+      </Container>}
+      </Router>
+    
   )
 }
