@@ -84,36 +84,40 @@ export default function Login() {
     e.preventDefault()
     setemailStatus(false)
     setpasswordStatus(false)
+    // console.log("came1");
+
 
     // console.log(person)
-    // console.log(email,password)
+    // console.log(email, password)
     if (validator.isEmail(person.email)) {
-      //  console.log("hello")
+      // console.log("came1");
       setemailStatus(true)
     }
     if (person.password.length >= 8) {
+      // console.log("came3");
       setpasswordStatus(true)
     }
 
-    if(validator.isEmail(person.email)&&person.password>=8){
-      axios.post('http://localhost:5000/login', {
-        email: person.email,
-        password: person.password,
-      })
-      .then(function (response) {
-        // console.log(response.data)
-        if (response.data.status === "Success") {
-          setIsLoggedIn(true)
-          // console.log(isLoggedIn,errorMsg);
-          setuserid(response.data.user_id)
-        } else if(response.data.status === "Failed"){
-          setIsLoggedIn(false)
-          seterrorMsg(true)
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (validator.isEmail(person.email) && person.password.length >= 8) {
+      // console.log("hello");
+      axios.post("http://localhost:5000/login", {
+          email: person.email,
+          password: person.password,
+        })
+        .then(function (response) {
+          console.log(response)
+          if (response.data.status === "Success") {
+            setIsLoggedIn(true)
+            // console.log(isLoggedIn,errorMsg);
+            setuserid(response.data.user_id)
+          } else if (response.data.status === "Failed") {
+            setIsLoggedIn(false)
+            seterrorMsg(true)
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     }
   }
   return (
