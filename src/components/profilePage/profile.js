@@ -20,7 +20,7 @@ function encrypt(value) {
 function Profile() {
   // var person = ""
   const { userid } = useParams()
-  const [isUser, setIsUser] = useState(false)
+  const [isUser, setIsUser] = useState(true)
   const [person, setPerson] = useState({
     name: "",
     bio: "",
