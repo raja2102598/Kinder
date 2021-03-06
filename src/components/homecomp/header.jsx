@@ -6,7 +6,6 @@ import { BrowserRouter as Router} from "react-router-dom"
 function Header() {
   
   return (
-  
     <div>
       <Router forceRefresh={true}>
         <Navbar bg="secondary" expand="lg" varient="dark">
@@ -19,8 +18,8 @@ function Header() {
                 to={{
                   pathname: "/signup",
                   state: {
-                    hello: true
-                  }
+                    hello: true,
+                  },
                 }}
               >
                 <Button
