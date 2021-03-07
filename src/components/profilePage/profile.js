@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, Redirect } from "react-router-dom"
+import { BrowserRouter as Router } from "react-router-dom"
+
 import Container from "@material-ui/core/Container"
 import Typography from "@material-ui/core/Typography"
 const axios = require("axios")
@@ -113,7 +115,9 @@ function Profile() {
           </Container>
         </div>
       ) : (
-        <h1>User Not Found</h1>
+        <Router forceRefresh={true}>
+          <Redirect to="/login"></Redirect>
+        </Router>
       )}
     </div>
   )

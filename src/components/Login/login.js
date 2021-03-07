@@ -17,8 +17,7 @@ import { Link as LinkRoute, Redirect } from "react-router-dom"
 import { BrowserRouter as Router } from "react-router-dom"
 import validator from "validator"
 
-const axios = require('axios');
-
+const axios = require("axios")
 
 function Copyright() {
   return (
@@ -53,11 +52,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Flag=(props)=>{
-  return(
-  <Typography component="h2" variant="body1" color="secondary">
-    {props.text}
-  </Typography>
+const Flag = (props) => {
+  return (
+    <Typography component="h2" variant="body1" color="secondary">
+      {props.text}
+    </Typography>
   )
 }
 
@@ -67,9 +66,7 @@ export default function Login() {
   const [passwordStatus, setpasswordStatus] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [userid, setuserid] = useState("")
-  const [errorMsg,seterrorMsg]=useState(false)
-
-  
+  const [errorMsg, seterrorMsg] = useState(false)
 
   const classes = useStyles()
 
@@ -86,7 +83,6 @@ export default function Login() {
     setpasswordStatus(false)
     // console.log("came1");
 
-
     // console.log(person)
     // console.log(email, password)
     if (validator.isEmail(person.email)) {
@@ -100,7 +96,8 @@ export default function Login() {
 
     if (validator.isEmail(person.email) && person.password.length >= 8) {
       // console.log("hello");
-      axios.post("http://localhost:5000/login", {
+      axios
+        .post("http://localhost:5000/login", {
           email: person.email,
           password: person.password,
         })
@@ -122,85 +119,86 @@ export default function Login() {
   }
   return (
     <Router forceRefresh={true}>
-    {isLoggedIn?<Redirect to={'/feeds/'+userid}></Redirect>:
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          {errorMsg?<Flag text="Email or Password Not Found"></Flag>:""}
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              value={person.email}
-              onChange={handleChange}
-              autoFocus
-              error={!emailStatus}
-              helperText={emailStatus? "":"Please enter a valid Email"}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              value={person.password}
-              onChange={handleChange}
-              autoComplete="current-password"
-              error={!passwordStatus}
-              helperText={
-                !passwordStatus
-                  ? "Please Enter A Strong Password"
-                  : ""
-              }
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+      {isLoggedIn ? (
+        <Redirect to={"/feeds/" + userid}></Redirect>
+      ) : (
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            {errorMsg ? <Flag text="Email or Password Not Found"></Flag> : ""}
+            <form className={classes.form} onSubmit={handleSubmit}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                value={person.email}
+                onChange={handleChange}
+                autoFocus
+                error={!emailStatus}
+                helperText={emailStatus ? "" : "Please enter a valid Email"}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                value={person.password}
+                onChange={handleChange}
+                autoComplete="current-password"
+                error={!passwordStatus}
+                helperText={
+                  !passwordStatus ? "Please Enter A Strong Password" : ""
+                }
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <LinkRoute to="/signup  " id="loginLink">
+                    <p style={{ color: "#005BB8" }}>
+                      Don't have an account? Sign Up
+                    </p>
+                  </LinkRoute>
+                </Grid>
               </Grid>
-              <Grid item>
-                <LinkRoute to="/signup  " id="loginLink">
-                  <p style={{ color: "#005BB8" }}>
-                    Don't have an account? Sign Up
-                  </p>
-                </LinkRoute>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Box mt={8}>
-          <Copyright />
-        </Box>
-      </Container>}
+            </form>
+          </div>
+          <Box mt={8}>
+            <Copyright />
+          </Box>
+        </Container>
+      )}
     </Router>
   )
 }
