@@ -60,7 +60,7 @@ const Flag = (props) => {
   )
 }
 
-export default function Login() {
+export default function Login(props) {
   const [person, setPerson] = useState({ email: "", password: "" })
   const [emailStatus, setemailStatus] = useState(true)
   const [passwordStatus, setpasswordStatus] = useState(true)
@@ -120,7 +120,12 @@ export default function Login() {
   return (
     <Router forceRefresh={true}>
       {isLoggedIn ? (
-        <Redirect to={"/feeds/" + userid}></Redirect>
+        <Redirect
+          to={{
+            pathname: "/feeds/" + userid,
+            state: { from: props.location, user:  true },
+          }}
+        ></Redirect>
       ) : (
         <Container component="main" maxWidth="xs">
           <CssBaseline />

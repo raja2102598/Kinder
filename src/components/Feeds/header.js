@@ -36,16 +36,21 @@ function Header(props) {
     <>
       <Router forceRefresh={true}>
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand >Kinder</Navbar.Brand>
+          <Navbar.Brand>Kinder</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link >Messages</Nav.Link>
-            <Nav.Link >Friends</Nav.Link>
+            <Nav.Link>Messages</Nav.Link>
+            <Nav.Link>Friends</Nav.Link>
           </Nav>
           <Form inline style={{ padding: "6px" }}>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-light">Search</Button>
           </Form>
-          <Link to={"/profile/" + props.user_id}>
+          <Link
+            to={{
+              pathname: "/profile/" + props.user_id,
+              state: { from: props.location, user: true },
+            }}
+          >
             {/* <Button variant="outline-dark" style={{ marginRight: "10px" }}>
                 Profile
               </Button> */}

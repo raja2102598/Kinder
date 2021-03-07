@@ -2,6 +2,9 @@ import React from "react"
 
 import "./styles.css"
 
+
+
+
 function Posts(props) {
   return (
     <article className="Post">
