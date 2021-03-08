@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Header(props) {
-  console.log(props)
+  // console.log(props)
   const classes = useStyles()
   return (
     <>

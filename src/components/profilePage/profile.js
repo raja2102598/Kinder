@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams, Redirect, useLocation } from "react-router-dom"
 import { BrowserRouter as Router } from "react-router-dom"
-import Image from "material-ui-image"
-import Container from "@material-ui/core/Container"
 import Typography from "@material-ui/core/Typography"
-import { Box, Grid, Paper, Button } from "@material-ui/core"
+import { Grid, Button } from "@material-ui/core"
 
 import { makeStyles } from "@material-ui/core/styles"
 import Header from "../Feeds/header"
@@ -34,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function Profile() {
+function Profile(props) {
   // var person = ""
   const { userid } = useParams()
   const [person, setPerson] = useState({
@@ -102,15 +100,15 @@ function Profile() {
       {location.state?.user ? (
         <div>
           <Header user_id={userid} name={person.name}></Header>
-          <Grid container spacing={10}>
+          <Grid container style={{ marginTop: "2%" }}>
             <Grid item xs={12} sm={4}>
               <img
-                src="https://instagram.fsxv1-1.fna.fbcdn.net/v/t51.2885-19/s320x320/148352788_191306249448197_542620265485020273_n.jpg?tp=1&_nc_ht=instagram.fsxv1-1.fna.fbcdn.net&_nc_ohc=X6T-NS_JnycAX_W_Byi&oh=67822ca24d224549ea5df8974833567c&oe=606F7417"
+                src="https://picsum.photos/150/150"
                 alt="image"
                 style={{
                   borderRadius: "50%",
                   margin: "20px",
-                  marginLeft: "80%",
+                  marginLeft: "65%",
                 }}
                 height="150"
                 width="150"
@@ -130,8 +128,22 @@ function Profile() {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Button variant="outlined" style={{ marginTop: "60px" }}>
-                Edit Profile
+              <Button
+                variant="outlined"
+                style={{ marginTop: "60px" }}
+                color="default"
+              >
+                <Router forceRefresh={true}>
+                  <Link
+                    style={{ color: "#000" }}
+                    to={{
+                      pathname: "/EditProfile/" + userid,
+                      state: { from: props.location, user: true },
+                    }}
+                  >
+                    Edit Profile
+                  </Link>
+                </Router>
               </Button>
             </Grid>
           </Grid>
@@ -141,21 +153,8 @@ function Profile() {
               backgroundColor: "#EBEBEB",
               height: 0.3,
               borderColor: "#EBEBEB",
-              marginLeft: 50, marginRight: 50 
             }}
           />
-          {/* <Typography component="h1" variant="h5">
-              {person.email}
-            </Typography>
-            <Typography component="h1" variant="h5">
-              {person.gender}
-            </Typography>
-            <Typography component="h1" variant="h5">
-              {person.hobby}
-            </Typography>
-            <Typography component="h1" variant="h5">
-              {person.interests}
-            </Typography> */}
         </div>
       ) : (
         <Router forceRefresh={true}>

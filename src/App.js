@@ -5,6 +5,7 @@ import Feeds from "./components/Feeds/feeds"
 // pages
 import ComponentHome from "./components/homecomp/componentHome"
 import Login from "./components/Login/login.js"
+import EditProfile from "./components/profilePage/editProfile"
 import Profile from "./components/profilePage/profile"
 import Signup from "./components/signup/signup"
 
@@ -25,6 +26,7 @@ const App = () => {
         </Route>
         <Route path="/feeds/:userid" children={<Feeds />}></Route>
         <Route path="/profile/:userid" children={<Profile />}></Route>
+        <Route path="/EditProfile/:userid" children={<EditProfile />}></Route>
       </Switch>
     </Router>
   )

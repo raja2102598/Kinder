@@ -78,16 +78,16 @@ function Feeds() {
           <Typography gutterBottom variant="h1"></Typography>
           <Stories></Stories>
           <Posts
-            avatarurl=""
+            avatarurl="https://picsum.photos/150/150"
             nickname="raja"
-            imageurl="https://pbs.twimg.com/media/DOXI0IEXkAAkokm.jpg"
-            imageCaption="hello"
+            imageurl="https://picsum.photos/500/500"
+            imageCaption="test caption"
           ></Posts>
           <Posts
-            avatarurl=""
+            avatarurl="https://picsum.photos/150/150"
             nickname="raja"
-            imageurl="https://pbs.twimg.com/media/DOXI0IEXkAAkokm.jpg"
-            imageCaption="hello"
+            imageurl="https://picsum.photos/500/500"
+            imageCaption="hello world"
           ></Posts>
         </div>
       ) : (
