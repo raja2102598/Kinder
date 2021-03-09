@@ -45,6 +45,7 @@ function Profile(props) {
     hobby: "",
     interests: "",
     status: "",
+    pic_url: "",
   })
   //   console.log(userid)
   useEffect(() => {
@@ -73,6 +74,7 @@ function Profile(props) {
             hobby: decrypt(resp.hobby),
             interests: decrypt(resp.interests),
             status: resp.status,
+            pic_url: resp.user_pic_url,
           })
           // var bytes = CryptoJS.AES.decrypt(
           //   "U2FsdGVkX1+KPj97VVD5Mv3JRZmEnQyksNlgerWM/SE=",
@@ -99,18 +101,22 @@ function Profile(props) {
     <div>
       {location.state?.user ? (
         <div>
-          <Header user_id={userid} name={person.name}></Header>
+          <Header
+            user_id={userid}
+            name={person.name}
+            picurl={person.pic_url}
+          ></Header>
           <Grid container style={{ marginTop: "2%" }}>
             <Grid item xs={12} sm={4}>
               <img
-                src="https://picsum.photos/150/150"
+                src={person.pic_url}
                 alt="image"
                 style={{
                   borderRadius: "50%",
                   margin: "20px",
                   marginLeft: "65%",
                 }}
-                height="150"
+                height="160"
                 width="150"
               />
             </Grid>

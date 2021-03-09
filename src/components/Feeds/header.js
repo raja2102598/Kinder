@@ -11,6 +11,7 @@ import { BrowserRouter as Router } from "react-router-dom"
 import { Avatar } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { deepOrange, deepPurple } from "@material-ui/core/colors"
+import { useState } from 'react'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +31,14 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Header(props) {
-  // console.log(props)
+  const [searchQuery,setSearchQuery]=useState("")
+
+  const handleChange = (e) => {
+    const value = e.target.value
+    setSearchQuery(value)
+    // console.log(person);
+  }
+
   const classes = useStyles()
   return (
     <>
@@ -42,8 +50,13 @@ function Header(props) {
             <Nav.Link>Friends</Nav.Link>
           </Nav>
           <Form inline style={{ padding: "6px" }}>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            <FormControl type="text" placeholder="Search" className="mr-sm-2" value={searchQuery} onChange={handleChange} required/>
+            <Link to={{
+              pathname:"/search/"+searchQuery,
+              state:{from: props.location, user:true}
+            }}>
             <Button variant="outline-light">Search</Button>
+            </Link>
           </Form>
           <Link
             to={{
@@ -51,10 +64,16 @@ function Header(props) {
               state: { from: props.location, user: true },
             }}
           >
-            {/* <Button variant="outline-dark" style={{ marginRight: "10px" }}>
-                Profile
-              </Button> */}
-            <Avatar className={classes.orange}>{props.name[0]} </Avatar>
+            {props.picurl.length > 0 ? (
+              <Button variant="outline-dark">
+                <Avatar
+                  alt=""
+                  src={props.picurl}
+                />
+              </Button>
+            ) : (
+              <Avatar className={classes.orange}>{props.name[0]} </Avatar>
+            )}
           </Link>
         </Navbar>
       </Router>

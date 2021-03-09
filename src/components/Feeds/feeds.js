@@ -12,6 +12,7 @@ function Feeds() {
   const { userid } = useParams()
   const [person, setPerson] = useState({
     name: "",
+    pic_url: "",
     status: "",
   })
   const location = useLocation()
@@ -51,16 +52,20 @@ function Feeds() {
         },
       })
       .then(function (response) {
+        console.log(response)
         if (response.data.status === "Success") {
           var resp = response.data
           setPerson({
             name: resp.name,
+            pic_url: resp.user_pic_url,
             status: resp.status,
           })
+          console.log(person)
         } else if (response.data.status === "Failed") {
           setPerson({
             name: "U",
             status: "Failed",
+            pic_url: "",
           })
         }
       })
@@ -74,7 +79,11 @@ function Feeds() {
       {location.state?.user ? (
         <div>
           <CssBaseline />
-          <Header user_id={userid} name={person.name}></Header>
+          <Header
+            user_id={userid}
+            name={person.name}
+            picurl={person.pic_url}
+          ></Header>
           <Typography gutterBottom variant="h1"></Typography>
           <Stories></Stories>
           <Posts

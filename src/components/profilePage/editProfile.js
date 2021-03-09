@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams, Redirect, useLocation } from "react-router-dom"
 import { BrowserRouter as Router } from "react-router-dom"
-import { Grid, Button } from "@material-ui/core"
+import { Grid, Button, Typography } from "@material-ui/core"
 import { storage } from "../../helpers/firebase"
-
 
 import { makeStyles } from "@material-ui/core/styles"
 import Header from "../Feeds/header"
 import { Col, Form, Row } from "react-bootstrap"
 const axios = require("axios")
 var CryptoJS = require("crypto-js")
-
 
 function decrypt(value) {
   var bytes = CryptoJS.AES.decrypt(value, process.env.REACT_APP_SECRET_KEY)
@@ -22,6 +20,14 @@ function encrypt(value) {
     value,
     process.env.REACT_APP_SECRET_KEY
   ).toString()
+}
+
+const Flag = (props) => {
+  return (
+    <Typography component="h2" variant="body1" color="primary">
+      {props.text}
+    </Typography>
+  )
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +45,10 @@ function EditProfile(props) {
   const params = useParams()
   const [file, setFile] = useState(null)
   const [url, setURL] = useState("")
+  const [savedMsg, setsavedMsg] = useState(false)
+  const [isClick, setisClick] = useState(false)
+  const [isUploading, setisUploading] = useState("")
+
   var userid = params.userid
   console.log(userid)
 
@@ -51,7 +61,7 @@ function EditProfile(props) {
     gender: "",
     hobby: "",
     interests: "",
-    userpic:  "",
+    pic_url: "",
     status: "",
     user_id: userid,
   })
@@ -68,6 +78,9 @@ function EditProfile(props) {
   })
   console.log(savePerson)
   console.log(person)
+  const showRes = () => {
+    setsavedMsg(true)
+  }
 
   const handleChange = (e) => {
     const name = e.target.name
@@ -107,6 +120,8 @@ function EditProfile(props) {
   }
   const handleUpload = (e) => {
     const uploadTask = storage.ref(`/images/${file.name}`).put(file)
+    setisUploading(true)
+    setisClick(true)
     uploadTask.on("state_changed", console.log, console.error, () => {
       storage
         .ref("images")
@@ -115,7 +130,8 @@ function EditProfile(props) {
         .then((url) => {
           setFile(null)
           setURL(url)
-          setPerson({...person,["userpic"]:url})
+          setPerson({ ...person, ["pic_url"]: url })
+          setisUploading(false)
         })
     })
   }
@@ -143,6 +159,7 @@ function EditProfile(props) {
             hobby: decrypt(resp.hobby),
             interests: decrypt(resp.interests),
             status: resp.status,
+            pic_url: resp.user_pic_url,
           })
           console.log(person)
         } else if (response.data.status === "Failed") {
@@ -158,7 +175,11 @@ function EditProfile(props) {
     <div>
       {location.state?.user ? (
         <div>
-          <Header user_id={params.userid} name={person.name}></Header>
+          <Header
+            user_id={params.userid}
+            name={person.name}
+            picurl={person.pic_url}
+          ></Header>
           <Grid
             container
             alignContent="center"
@@ -175,10 +196,9 @@ function EditProfile(props) {
                   <Col sm={4}>
                     <Form.Control type="file" onChange={handleFileChange} />
                     <img
-                      src={url}
+                      src={person.pic_url.length > 0 ? person.pic_url : url}
                       alt=""
                       style={{
-                        borderRadius: "50%",
                         marginRight: "10%",
                         margin: "10%",
                       }}
@@ -188,6 +208,15 @@ function EditProfile(props) {
                     <button disabled={!file} onClick={handleUpload}>
                       Upload
                     </button>
+                    {isClick ? (
+                      isUploading ? (
+                        <Flag text="Uploading..."></Flag>
+                      ) : (
+                        <Flag text="Successfully Uploaded"></Flag>
+                      )
+                    ) : (
+                      ""
+                    )}
                   </Col>
                 </Form.Group>
 
@@ -324,9 +353,14 @@ function EditProfile(props) {
 
                 <Form.Group as={Row}>
                   <Col sm={{ span: 10, offset: 2 }}>
-                    <Button type="submit" variant="outlined">
+                    <Button type="submit" variant="outlined" onClick={showRes}>
                       Save
                     </Button>
+                    {savedMsg ? (
+                      <Flag text="Data Updated Successfully"></Flag>
+                    ) : (
+                      ""
+                    )}
                   </Col>
                 </Form.Group>
               </Form>
