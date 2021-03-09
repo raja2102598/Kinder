@@ -1,10 +1,11 @@
-import React from 'react';
+import React from "react"
 import ReactDOM from "react-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import App from "./App"
+require("dotenv").config()
+
 // import { BrowserRouter as Router } from "react-router-dom"
 // import Routes from "./routes"
 // import ComponentHome from "./components/homecomp/componentHome"
 
 ReactDOM.render(<App />, document.getElementById("root"))
-

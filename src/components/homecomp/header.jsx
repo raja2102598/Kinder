@@ -1,12 +1,9 @@
 import { Navbar, Nav, Form, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
-import { BrowserRouter as Router} from "react-router-dom"
-
+import { BrowserRouter as Router } from "react-router-dom"
 
 function Header() {
-  
   return (
-  
     <div>
       <Router forceRefresh={true}>
         <Navbar bg="secondary" expand="lg" varient="dark">
@@ -19,8 +16,8 @@ function Header() {
                 to={{
                   pathname: "/signup",
                   state: {
-                    hello: true
-                  }
+                    hello: true,
+                  },
                 }}
               >
                 <Button

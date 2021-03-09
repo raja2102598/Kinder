@@ -14,8 +14,7 @@ import { Link as LinkRoute, Redirect, Route } from "react-router-dom"
 import { BrowserRouter as Router } from "react-router-dom"
 import validator from "validator"
 
-const axios = require('axios');
-
+const axios = require("axios")
 
 function Copyright() {
   return (
@@ -52,11 +51,11 @@ const handleSubmit = (e) => {
   console.log(e.target.values)
 }
 
-const Flag=(props)=>{
-  return(
-  <Typography component="h2" variant="body1" color="secondary">
-    {props.text}
-  </Typography>
+const Flag = (props) => {
+  return (
+    <Typography component="h2" variant="body1" color="secondary">
+      {props.text}
+    </Typography>
   )
 }
 
@@ -66,7 +65,7 @@ export default function SignUp() {
     lname: "",
     email: "",
     password: "",
-    confirm_password:""
+    confirm_password: "",
   })
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [emailStatus, setemailStatus] = useState(false)
@@ -79,7 +78,7 @@ export default function SignUp() {
     const name = e.target.name
     const value = e.target.value
     setPerson({ ...person, [name]: value })
-    console.log(person);
+    console.log(person)
   }
 
   const handleSubmit = (e) => {
@@ -90,35 +89,36 @@ export default function SignUp() {
       validator.isEmail(person.email) &&
       person.password.length >= 8 &&
       person.fname.length >= 0 &&
-      person.lname.length>=0 && person.password===person.confirm_password
+      person.lname.length >= 0 &&
+      person.password === person.confirm_password
     ) {
       // console.log("hello")
       setpasswordStatus(true)
-      axios.post('http://localhost:5000/createAcc', {
-        firstName: person.fname,
-        lastName: person.lname,
-        email:person.email,
-        password:person.password
-      })
-      .then(function (response) {
-        console.log(response.data)
-        // {<Redirect to={"/login"}></Redirect>
-        if (response.data.status === "Success") {
-          setIsLoggedIn(true)
-          setuserid(response.data.user_id)
-          // console.log("hello")
-          // console.log(isLoggedIn)
-        } else if(response.data.status === "Failed"){
-          setIsLoggedIn(false)
-          setemailStatus(true)
-          // console.log("hello wolrd")
-          // console.log(isLoggedIn)
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-      
+      axios
+        .post("http://localhost:5000/createAcc", {
+          firstName: person.fname,
+          lastName: person.lname,
+          email: person.email,
+          password: person.password,
+        })
+        .then(function (response) {
+          console.log(response.data)
+          // {<Redirect to={"/login"}></Redirect>
+          if (response.data.status === "Success") {
+            setIsLoggedIn(true)
+            setuserid(response.data.user_id)
+            // console.log("hello")
+            // console.log(isLoggedIn)
+          } else if (response.data.status === "Failed") {
+            setIsLoggedIn(false)
+            setemailStatus(true)
+            // console.log("hello wolrd")
+            // console.log(isLoggedIn)
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     } else {
       setpasswordStatus(false)
       console.log("bye")
@@ -127,91 +127,96 @@ export default function SignUp() {
 
   return (
     <Router forceRefresh={true}>
-    {isLoggedIn?<Redirect to={'/feeds/'+userid}></Redirect>:
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          {emailStatus?<Flag text="Email already in use.Please Sign in !"></Flag>:""}
-          {passwordStatus?"":<Flag text="Passwords doesn't match"></Flag>}
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="fname"
-                  name="fname"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="fname"
-                  label="First Name"
-                  autoFocus
-                  value={person.fname}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="lname"
-                  label="Last Name"
-                  name="lname"
-                  autoComplete="lname"
-                  value={person.lname}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={person.email}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  value={person.password}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="confirm_password"
-                  label="Confirm Password"
-                  type="password"
-                  id="confirm_password"
-                  autoComplete="current-password"
-                  value={person.confirm_password}
-                  onChange={handleChange}
+      {isLoggedIn ? (
+        <Redirect to={"/feeds/" + userid}></Redirect>
+      ) : (
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign up
+            </Typography>
+            {emailStatus ? (
+              <Flag text="Email already in use.Please Sign in !"></Flag>
+            ) : (
+              ""
+            )}
+            {passwordStatus ? "" : <Flag text="Passwords doesn't match"></Flag>}
+            <form className={classes.form} onSubmit={handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="fname"
+                    name="fname"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="fname"
+                    label="First Name"
+                    autoFocus
+                    value={person.fname}
+                    onChange={handleChange}
                   />
-              </Grid>
-              
-              
-              {/* <Grid item xs={12}>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="lname"
+                    label="Last Name"
+                    name="lname"
+                    autoComplete="lname"
+                    value={person.lname}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value={person.email}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    value={person.password}
+                    onChange={handleChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    name="confirm_password"
+                    label="Confirm Password"
+                    type="password"
+                    id="confirm_password"
+                    autoComplete="current-password"
+                    value={person.confirm_password}
+                    onChange={handleChange}
+                  />
+                </Grid>
+
+                {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
@@ -219,32 +224,32 @@ export default function SignUp() {
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid> */}
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign Up
-            </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <LinkRoute to="/login" id="loginLink">
-                  <p style={{ color: "#005BB8" }}>
-                    Already have an account? Sign in
-                  </p>
-                </LinkRoute>
               </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
-      </Container>}
-      </Router>
-    
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign Up
+              </Button>
+              <Grid container justify="flex-end">
+                <Grid item>
+                  <LinkRoute to="/login" id="loginLink">
+                    <p style={{ color: "#005BB8" }}>
+                      Already have an account? Sign in
+                    </p>
+                  </LinkRoute>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+          <Box mt={5}>
+            <Copyright />
+          </Box>
+        </Container>
+      )}
+    </Router>
   )
 }
