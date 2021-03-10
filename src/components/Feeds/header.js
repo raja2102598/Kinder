@@ -11,7 +11,7 @@ import { BrowserRouter as Router } from "react-router-dom"
 import { Avatar } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { deepOrange, deepPurple } from "@material-ui/core/colors"
-import { useState } from 'react'
+import { useState } from "react"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Header(props) {
-  const [searchQuery,setSearchQuery]=useState("")
+  const [searchQuery, setSearchQuery] = useState("")
 
   const handleChange = (e) => {
     const value = e.target.value
@@ -44,18 +44,34 @@ function Header(props) {
     <>
       <Router forceRefresh={true}>
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand>Kinder</Navbar.Brand>
+          <Link
+            to={{
+              pathname: "/feeds/" + props.user_id,
+              state: { from: props.location, user: true },
+            }}
+          >
+            <Navbar.Brand>Kinder</Navbar.Brand>
+          </Link>
           <Nav className="mr-auto">
             <Nav.Link>Messages</Nav.Link>
             <Nav.Link>Friends</Nav.Link>
           </Nav>
           <Form inline style={{ padding: "6px" }}>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" value={searchQuery} onChange={handleChange} required/>
-            <Link to={{
-              pathname:"/search/"+searchQuery,
-              state:{from: props.location, user:true}
-            }}>
-            <Button variant="outline-light">Search</Button>
+            <FormControl
+              type="text"
+              placeholder="Search"
+              className="mr-sm-2"
+              value={searchQuery}
+              onChange={handleChange}
+              required
+            />
+            <Link
+              to={{
+                pathname: "/search/" + searchQuery,
+                state: { from: props.location, user: true },
+              }}
+            >
+              <Button variant="outline-light">Search</Button>
             </Link>
           </Form>
           <Link
@@ -66,10 +82,7 @@ function Header(props) {
           >
             {props.picurl.length > 0 ? (
               <Button variant="outline-dark">
-                <Avatar
-                  alt=""
-                  src={props.picurl}
-                />
+                <Avatar alt="" src={props.picurl} />
               </Button>
             ) : (
               <Avatar className={classes.orange}>{props.name[0]} </Avatar>

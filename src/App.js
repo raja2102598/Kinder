@@ -9,6 +9,7 @@ import EditProfile from "./components/profilePage/editProfile"
 import Profile from "./components/profilePage/profile"
 import SearchHome from "./components/search/searchHome"
 import Signup from "./components/signup/signup"
+import bootstrap from "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 
 // navbar
 // import Navbar from "./Navbar"

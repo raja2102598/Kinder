@@ -6,7 +6,7 @@ import { storage } from "../../helpers/firebase"
 
 import { makeStyles } from "@material-ui/core/styles"
 import Header from "../Feeds/header"
-import { Col, Form, Row } from "react-bootstrap"
+import { Col, Form, Row, Spinner } from "react-bootstrap"
 const axios = require("axios")
 var CryptoJS = require("crypto-js")
 
@@ -52,6 +52,8 @@ function EditProfile(props) {
   var userid = params.userid
   console.log(userid)
 
+  const [HideBtn, setHideBtn] = useState(false)
+
   const [person, setPerson] = useState({
     name: "",
     bio: "",
@@ -92,6 +94,7 @@ function EditProfile(props) {
   }
   const handleFileChange = (e) => {
     setFile(e.target.files[0])
+    setHideBtn(false)
   }
   function saveData() {
     if (true) {
@@ -121,6 +124,7 @@ function EditProfile(props) {
   const handleUpload = (e) => {
     const uploadTask = storage.ref(`/images/${file.name}`).put(file)
     setisUploading(true)
+    setHideBtn(true)
     setisClick(true)
     uploadTask.on("state_changed", console.log, console.error, () => {
       storage
@@ -205,12 +209,17 @@ function EditProfile(props) {
                       height="150"
                       width="150"
                     />
-                    <button disabled={!file} onClick={handleUpload}>
+                    <button
+                      disabled={!file}
+                      onClick={handleUpload}
+                      // style={{ visibility: "hidden" }}
+                      hidden={HideBtn}
+                    >
                       Upload
                     </button>
                     {isClick ? (
                       isUploading ? (
-                        <Flag text="Uploading..."></Flag>
+                        <Spinner animation="border" />
                       ) : (
                         <Flag text="Successfully Uploaded"></Flag>
                       )
