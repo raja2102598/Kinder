@@ -29,7 +29,7 @@ const App = () => {
         <Route path="/feeds/:userid" children={<Feeds />}></Route>
         <Route path="/profile/:userid" children={<Profile />}></Route>
         <Route path="/EditProfile/:userid" children={<EditProfile />}></Route>
-        <Route path="/search/:query" children={<SearchHome />}></Route>
+        <Route path="/search/:userid/:query" children={<SearchHome />}></Route>
       </Switch>
     </Router>
   )
