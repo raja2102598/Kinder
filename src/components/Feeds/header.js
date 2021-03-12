@@ -39,6 +39,10 @@ function Header(props) {
     // console.log(person);
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
+
   const classes = useStyles()
   return (
     <>
@@ -56,24 +60,28 @@ function Header(props) {
             <Nav.Link>Messages</Nav.Link>
             <Nav.Link>Friends</Nav.Link>
           </Nav>
-          <Form inline style={{ padding: "6px" }}>
-            <FormControl
-              type="text"
-              placeholder="Search"
-              className="mr-sm-2"
-              value={searchQuery}
-              onChange={handleChange}
-              required
-            />
-            <Link
-              to={{
-                pathname: "/search/" + searchQuery,
-                state: { from: props.location, user: true },
-              }}
-            >
-              <Button variant="outline-light">Search</Button>
-            </Link>
-          </Form>
+          {!props.hideSearch   ? (
+            <Form inline style={{ padding: "6px" }} onSubmit={handleSubmit}>
+              <FormControl
+                type="text"
+                placeholder="Search"
+                className="mr-sm-2"
+                value={searchQuery}
+                onChange={handleChange}
+                required
+              />
+              <Link
+                to={{
+                  pathname: "/search/" + props.user_id + "/" + searchQuery,
+                  state: { from: props.location, user: true },
+                }}
+              >
+                <Button variant="outline-light">Search</Button>
+              </Link>
+            </Form>
+          ) : (
+            ""
+          )}
           <Link
             to={{
               pathname: "/profile/" + props.user_id,
