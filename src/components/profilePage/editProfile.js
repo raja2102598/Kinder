@@ -316,6 +316,7 @@ function EditProfile(props) {
                       name="gender"
                       id="male"
                       value="male"
+                      checked={person.gender == "male" ? true : false}
                       onChange={handleChange}
                     />
                     <Form.Check
@@ -326,6 +327,7 @@ function EditProfile(props) {
                       id="female"
                       value="female"
                       onChange={handleChange}
+                      checked={person.gender == "female" ? true : false}
                     />
                   </Col>
                 </Form.Group>

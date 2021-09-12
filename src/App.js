@@ -10,6 +10,8 @@ import Profile from "./components/profilePage/profile"
 import SearchHome from "./components/search/searchHome"
 import Signup from "./components/signup/signup"
 import bootstrap from "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import CreatePosts from "./components/posts/createPosts"
+import ViewProfile from "./components/profilePage/ViewProfile"
 
 // navbar
 // import Navbar from "./Navbar"
@@ -30,6 +32,8 @@ const App = () => {
         <Route path="/profile/:userid" children={<Profile />}></Route>
         <Route path="/EditProfile/:userid" children={<EditProfile />}></Route>
         <Route path="/search/:userid/:query" children={<SearchHome />}></Route>
+        <Route path="/createPost/:userid" children={<CreatePosts />}></Route>
+        <Route path="/viewProfile/:userid" children={<ViewProfile />}></Route>
       </Switch>
     </Router>
   )

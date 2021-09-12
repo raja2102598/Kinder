@@ -57,10 +57,42 @@ function Header(props) {
             <Navbar.Brand>Kinder</Navbar.Brand>
           </Link>
           <Nav className="mr-auto">
-            <Nav.Link>Messages</Nav.Link>
-            <Nav.Link>Friends</Nav.Link>
+            <Nav.Link>
+              <Link
+                to={{
+                  pathname: "/feeds/" + props.user_id,
+                  state: { from: props.location, user: true },
+                }}
+                style={{ color: "#96989D", textDecoration: "none" }}
+              >
+                Feeds
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link
+                to={{
+                  pathname: "/createPost/" + props.user_id,
+                  state: { from: props.location, user: true },
+                }}
+                style={{ color: "#96989D", textDecoration: "none" }}
+              >
+                Create Post
+              </Link>
+            </Nav.Link>
+
+            <Nav.Link>
+              <Link
+                to={{
+                  pathname: "/login/",
+                  state: { from: props.location, user: false },
+                }}
+                style={{ color: "#96989D", textDecoration: "none" }}
+              >
+                Logout
+              </Link>
+            </Nav.Link>
           </Nav>
-          {!props.hideSearch   ? (
+          {!props.hideSearch ? (
             <Form inline style={{ padding: "6px" }} onSubmit={handleSubmit}>
               <FormControl
                 type="text"
@@ -87,13 +119,14 @@ function Header(props) {
               pathname: "/profile/" + props.user_id,
               state: { from: props.location, user: true },
             }}
+            style={{ textDecoration: "none" }}
           >
             {props.picurl.length > 0 ? (
               <Button variant="outline-dark">
                 <Avatar alt="" src={props.picurl} />
               </Button>
             ) : (
-              <Avatar className={classes.orange}>{props.name[0]} </Avatar>
+              <Avatar className={classes.orange}>{props.name[0]}</Avatar>
             )}
           </Link>
         </Navbar>

@@ -284,12 +284,12 @@ function SearchHome(props) {
                   onHide={() => setModalShow(false)}
                   params={setSearchParams}
                   data={searchParams}
-                  onSearch={() => {    
-                      setModalShow(false)
-                      if(searchParams.city!=''){
-                        searchUserByCity()
-                      }               
-                      searchUserByAge()
+                  onSearch={() => {
+                    setModalShow(false)
+                    if (searchParams.city != "") {
+                      searchUserByCity()
+                    }
+                    searchUserByAge()
                   }}
                 />
                 <Typography gutterBottom></Typography>
@@ -307,16 +307,35 @@ function SearchHome(props) {
                           {/* <Card.Img variant="top" src={user.user_pic_url.length>0? user.user_pic_url : ""} /> */}
                           <Card.Header as="h4">{user.u_name}</Card.Header>
                           <Card.Body>
-                            <Card.Title>
+                            {/* <Card.Title>
                               {user.u_bio.length > 0
                                 ? decrypt(user.u_bio)
                                 : "None"}
-                            </Card.Title>
+                            </Card.Title> */}
                             <Card.Text>
                               {user.u_hobby ? decrypt(user.u_hobby) : " "}
                             </Card.Text>
                             <Card.Text>{decrypt(user.u_interests)}</Card.Text>
-                            <Button variant="secondary">View Profile</Button>
+                            <Button variant="secondary">
+                              <Link
+                                to={{
+                                  pathname: "/viewProfile/" + user.user_id,
+                                  state: {
+                                    from: props.location,
+                                    seeUser: true,
+                                    currentUserId: data.userid,
+                                    currentUserName: person.name,
+                                    currentUserPic: person.pic_url,
+                                  },
+                                }}
+                                style={{
+                                  color: "black",
+                                  textDecoration: "none",
+                                }}
+                              >
+                                View Profile
+                              </Link>
+                            </Button>
                           </Card.Body>
                         </Card>
                       </Col>
