@@ -7,9 +7,9 @@ function ComponentHome() {
   return (
     <div>
       <Header></Header>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
       <Homepage></Homepage>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
   )
 }

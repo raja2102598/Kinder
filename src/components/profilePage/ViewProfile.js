@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function Profile(props) {
+function ViewProfile(props) {
   // var person = ""
   const { userid } = useParams()
   const [person, setPerson] = useState({
@@ -121,6 +121,9 @@ function Profile(props) {
         console.log(error)
       })
   }
+  String.prototype.capitalize = function () {
+    return this.charAt(0).toUpperCase() + this.slice(1)
+  }
   const location = useLocation()
   const classes = useStyles()
   return (
@@ -136,19 +139,23 @@ function Profile(props) {
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
         crossorigin="anonymous"
       />
-      {location.state?.user ? (
+      {location.state?.seeUser ? (
         <div>
           <Header
-            user_id={userid}
-            name={person.name}
-            picurl={person.pic_url}
+            user_id={location.state?.currentUserId}
+            name={location.state?.currentUserName}
+            picurl={location.state?.currentUserPic}
           ></Header>
           <h1 class="display-4 text-center pb-3">Profile</h1>
           <Grid container style={{ marginTop: "2%" }}>
             <Grid item xs={12} sm={4}>
               <img
-                src={person.pic_url}
-                alt="upload picture"
+                src={
+                  person.pic_url.length > 0
+                    ? person.pic_url
+                    : "https://firebasestorage.googleapis.com/v0/b/privacynet-faafb.appspot.com/o/1024px-User-avatar.svg.png?alt=media&token=4e29312b-cc8e-4d2e-be44-581457caea30"
+                }
+                alt="No Picture"
                 style={{
                   borderRadius: "50%",
                   margin: "20px",
@@ -171,25 +178,6 @@ function Profile(props) {
                 {person.bio}
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <Button
-                variant="outlined"
-                style={{ marginTop: "60px" }}
-                color="default"
-              >
-                <Router forceRefresh={true}>
-                  <Link
-                    style={{ color: "#000" }}
-                    to={{
-                      pathname: "/EditProfile/" + userid,
-                      state: { from: props.location, user: true },
-                    }}
-                  >
-                    <label>Edit Profile</label>
-                  </Link>
-                </Router>
-              </Button>
-            </Grid>
           </Grid>
           <hr
             style={{
@@ -199,7 +187,9 @@ function Profile(props) {
             }}
           />
           <>
-            <div className="display-4 text-center m-3 pb-5">My Posts</div>
+            <div className="display-4 text-center m-3 pb-5">
+              {person.name.capitalize() + " Posts"}
+            </div>
           </>
           {posts.length > 0 ? (
             posts.reverse().map((post) => {
@@ -214,7 +204,7 @@ function Profile(props) {
               )
             })
           ) : (
-            <div className="text-center">Add some posts</div>
+            <div className="text-center">No Posts</div>
           )}
         </div>
       ) : (
@@ -226,4 +216,4 @@ function Profile(props) {
   )
 }
 
-export default Profile
+export default ViewProfile
