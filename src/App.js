@@ -13,8 +13,8 @@ import bootstrap from "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import CreatePosts from "./components/posts/createPosts"
 import ViewProfile from "./components/profilePage/ViewProfile"
 
-// navbar
 // import Navbar from "./Navbar"
+
 const App = () => {
   return (
     <Router>
